@@ -30,7 +30,7 @@
  * -------------------------------------------------------------------------- */
 
 #include "CudaTests.h"
-#include "TestNonbondedForce.h"
+#include "../../../tests/TestNonbondedForce.h"
 #include <cuda.h>
 #include <string>
 

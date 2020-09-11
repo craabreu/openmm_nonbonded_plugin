@@ -30,7 +30,7 @@
  * -------------------------------------------------------------------------- */
 
 #include "OpenCLTests.h"
-#include "TestNonbondedForce.h"
+#include "../../../tests/TestNonbondedForce.h"
 #include <cl.hpp>
 #include <string>
 

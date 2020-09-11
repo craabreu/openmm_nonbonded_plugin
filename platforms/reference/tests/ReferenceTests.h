@@ -29,8 +29,12 @@
  * USE OR OTHER DEALINGS IN THE SOFTWARE.                                     *
  * -------------------------------------------------------------------------- */
 
-#include "ReferenceTests.h"
-#include "../../../tests/TestNonbondedForce.h"
+#ifdef WIN32
+  #define _USE_MATH_DEFINES // Needed to get M_PI
+#endif
+#include "openmm/reference/ReferencePlatform.h"
 
-void runPlatformTests() {
+OpenMM::ReferencePlatform platform;
+
+void initializeTests(int argc, char* argv[]) {
 }

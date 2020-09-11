@@ -31,12 +31,12 @@
 
 #include "openmm/internal/AssertionUtilities.h"
 #include "openmm/Context.h"
-#include "ReferencePlatform.h"
+#include "openmm/reference/ReferencePlatform.h"
 #include "openmm/HarmonicBondForce.h"
 #include "openmm/NonbondedForce.h"
 #include "openmm/System.h"
 #include "openmm/VerletIntegrator.h"
-#include "SimTKOpenMMRealType.h"
+#include "openmm/reference/SimTKOpenMMRealType.h"
 #include "sfmt/SFMT.h"
 #include <iostream>
 #include <iomanip>

@@ -32,8 +32,8 @@
  * USE OR OTHER DEALINGS IN THE SOFTWARE.                                     *
  * -------------------------------------------------------------------------- */
 
-#include "ForceImpl.h"
-#include "openmm/NonbondedForce.h"
+#include "openmm/internal/ForceImpl.h"
+#include "NonbondedForce.h"
 #include "openmm/Kernel.h"
 #include <utility>
 #include <set>
