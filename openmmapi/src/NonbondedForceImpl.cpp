@@ -34,13 +34,14 @@
 #endif
 #include "openmm/OpenMMException.h"
 #include "openmm/internal/ContextImpl.h"
-#include "openmm/internal/NonbondedForceImpl.h"
-#include "openmm/kernels.h"
+#include "internal/NonbondedForceImpl.h"
+#include "ExampleKernels.h"
 #include <cmath>
 #include <map>
 #include <sstream>
 #include <algorithm>
 
+using namespace ExamplePlugin;
 using namespace OpenMM;
 using namespace std;
 
@@ -55,7 +56,7 @@ void NonbondedForceImpl::initialize(ContextImpl& context) {
 
     // Check for errors in the specification of exceptions.
 
-    const System& system = context.getSystem();
+    const OpenMM::System& system = context.getSystem();
     if (owner.getNumParticles() != system.getNumParticles())
         throw OpenMMException("NonbondedForce must have exactly as many particles as the System it belongs to.");
     if (owner.getUseSwitchingFunction()) {
@@ -140,7 +141,7 @@ private:
     double width, alpha, target;
 };
 
-void NonbondedForceImpl::calcEwaldParameters(const System& system, const NonbondedForce& force, double& alpha, int& kmaxx, int& kmaxy, int& kmaxz) {
+void NonbondedForceImpl::calcEwaldParameters(const OpenMM::System& system, const NonbondedForce& force, double& alpha, int& kmaxx, int& kmaxy, int& kmaxz) {
     Vec3 boxVectors[3];
     system.getDefaultPeriodicBoxVectors(boxVectors[0], boxVectors[1], boxVectors[2]);
     double tol = force.getEwaldErrorTolerance();
@@ -156,7 +157,7 @@ void NonbondedForceImpl::calcEwaldParameters(const System& system, const Nonbond
         kmaxz++;
 }
 
-void NonbondedForceImpl::calcPMEParameters(const System& system, const NonbondedForce& force, double& alpha, int& xsize, int& ysize, int& zsize, bool lj) {
+void NonbondedForceImpl::calcPMEParameters(const OpenMM::System& system, const NonbondedForce& force, double& alpha, int& xsize, int& ysize, int& zsize, bool lj) {
     if (lj)
         force.getLJPMEParameters(alpha, xsize, ysize, zsize);
     else
@@ -232,7 +233,7 @@ double NonbondedForceImpl::evalIntegral(double r, double rs, double rc, double s
     );
 }
 
-double NonbondedForceImpl::calcDispersionCorrection(const System& system, const NonbondedForce& force) {
+double NonbondedForceImpl::calcDispersionCorrection(const OpenMM::System& system, const NonbondedForce& force) {
     if (force.getNonbondedMethod() == NonbondedForce::NoCutoff || force.getNonbondedMethod() == NonbondedForce::CutoffNonPeriodic)
         return 0.0;
 

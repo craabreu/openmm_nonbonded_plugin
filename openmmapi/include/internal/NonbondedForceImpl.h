@@ -39,53 +39,52 @@
 #include <set>
 #include <string>
 
-namespace OpenMM {
+namespace ExamplePlugin {
 
 class System;
 
 /**
  * This is the internal implementation of NonbondedForce.
  */
-
-class OPENMM_EXPORT NonbondedForceImpl : public ForceImpl {
+class OPENMM_EXPORT_EXAMPLE NonbondedForceImpl : public OpenMM::ForceImpl {
 public:
     NonbondedForceImpl(const NonbondedForce& owner);
     ~NonbondedForceImpl();
-    void initialize(ContextImpl& context);
+    void initialize(OpenMM::ContextImpl& context);
     const NonbondedForce& getOwner() const {
         return owner;
     }
-    void updateContextState(ContextImpl& context, bool& forcesInvalid) {
+    void updateContextState(OpenMM::ContextImpl& context, bool& forcesInvalid) {
         // This force field doesn't update the state directly.
     }
-    double calcForcesAndEnergy(ContextImpl& context, bool includeForces, bool includeEnergy, int groups);
+    double calcForcesAndEnergy(OpenMM::ContextImpl& context, bool includeForces, bool includeEnergy, int groups);
     std::map<std::string, double> getDefaultParameters();
     std::vector<std::string> getKernelNames();
-    void updateParametersInContext(ContextImpl& context);
+    void updateParametersInContext(OpenMM::ContextImpl& context);
     void getPMEParameters(double& alpha, int& nx, int& ny, int& nz) const;
     void getLJPMEParameters(double& alpha, int& nx, int& ny, int& nz) const;
     /**
      * This is a utility routine that calculates the values to use for alpha and kmax when using
      * Ewald summation.
      */
-    static void calcEwaldParameters(const System& system, const NonbondedForce& force, double& alpha, int& kmaxx, int& kmaxy, int& kmaxz);
+    static void calcEwaldParameters(const OpenMM::System& system, const NonbondedForce& force, double& alpha, int& kmaxx, int& kmaxy, int& kmaxz);
     /**
      * This is a utility routine that calculates the values to use for alpha and grid size when using
      * Particle Mesh Ewald.
      */
-    static void calcPMEParameters(const System& system, const NonbondedForce& force, double& alpha, int& xsize, int& ysize, int& zsize, bool lj);
+    static void calcPMEParameters(const OpenMM::System& system, const NonbondedForce& force, double& alpha, int& xsize, int& ysize, int& zsize, bool lj);
     /**
      * Compute the coefficient which, when divided by the periodic box volume, gives the
      * long range dispersion correction to the energy.
      */
-    static double calcDispersionCorrection(const System& system, const NonbondedForce& force);
+    static double calcDispersionCorrection(const OpenMM::System& system, const NonbondedForce& force);
 private:
     class ErrorFunction;
     class EwaldErrorFunction;
     static int findZero(const ErrorFunction& f, int initialGuess);
     static double evalIntegral(double r, double rs, double rc, double sigma);
     const NonbondedForce& owner;
-    Kernel kernel;
+    OpenMM::Kernel kernel;
 };
 
 } // namespace OpenMM

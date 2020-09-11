@@ -34,6 +34,7 @@
 #endif
 #include "internal/ExampleForceImpl.h"
 #include "ExampleKernels.h"
+#include "NonbondedForce.h"
 #include "openmm/OpenMMException.h"
 #include "openmm/internal/ContextImpl.h"
 #include <cmath>

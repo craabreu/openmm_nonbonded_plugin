@@ -31,14 +31,15 @@
 
 #include "openmm/Force.h"
 #include "openmm/OpenMMException.h"
-#include "openmm/NonbondedForce.h"
+#include "NonbondedForce.h"
 #include "openmm/internal/AssertionUtilities.h"
-#include "openmm/internal/NonbondedForceImpl.h"
+#include "internal/NonbondedForceImpl.h"
 #include <cmath>
 #include <map>
 #include <sstream>
 #include <utility>
 
+using namespace ExamplePlugin;
 using namespace OpenMM;
 using std::map;
 using std::pair;

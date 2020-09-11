@@ -32,15 +32,15 @@
  * USE OR OTHER DEALINGS IN THE SOFTWARE.                                     *
  * -------------------------------------------------------------------------- */
 
-#include "Context.h"
-#include "Force.h"
+#include "openmm/Context.h"
+#include "openmm/Force.h"
 #include <map>
 #include <set>
 #include <utility>
 #include <vector>
-#include "internal/windowsExport.h"
+#include "internal/windowsExportExample.h"
 
-namespace OpenMM {
+namespace ExamplePlugin {
 
 /**
  * This class implements nonbonded interactions between particles, including a Coulomb force to represent
@@ -105,7 +105,7 @@ namespace OpenMM {
  * to modify exceptions in exactly the same way by calling addExceptionParameterOffset().
  */
 
-class OPENMM_EXPORT NonbondedForce : public Force {
+class OPENMM_EXPORT_EXAMPLE NonbondedForce : public OpenMM::Force {
 public:
     /**
      * This is an enumeration of the different methods that may be used for handling long range nonbonded forces.
@@ -299,7 +299,7 @@ public:
      * @param[out] ny      the number of grid points along the Y axis
      * @param[out] nz      the number of grid points along the Z axis
      */
-    void getPMEParametersInContext(const Context& context, double& alpha, int& nx, int& ny, int& nz) const;
+    void getPMEParametersInContext(const OpenMM::Context& context, double& alpha, int& nx, int& ny, int& nz) const;
     /**
      * Get the PME parameters being used for the dispersion term for LJPME in a particular Context.  Because some
      * platforms have restrictions on the allowed grid sizes, the values that are actually used may be slightly different
@@ -312,7 +312,7 @@ public:
      * @param[out] ny      the number of grid points along the Y axis
      * @param[out] nz      the number of grid points along the Z axis
      */
-    void getLJPMEParametersInContext(const Context& context, double& alpha, int& nx, int& ny, int& nz) const;
+    void getLJPMEParametersInContext(const OpenMM::Context& context, double& alpha, int& nx, int& ny, int& nz) const;
     /**
      * Add the nonbonded force parameters for a particle.  This should be called once for each particle
      * in the System.  When it is called for the i'th time, it specifies the parameters for the i'th particle.
@@ -555,7 +555,7 @@ public:
      * can be changed; the pair of particles involved in the exception cannot change.  Finally, this method cannot be used
      * to add new particles or exceptions, only to change the parameters of existing ones.
      */
-    void updateParametersInContext(Context& context);
+    void updateParametersInContext(OpenMM::Context& context);
     /**
      * Returns whether or not this force makes use of periodic boundary
      * conditions.
@@ -595,7 +595,7 @@ public:
      */
     void setExceptionsUsePeriodicBoundaryConditions(bool periodic);
 protected:
-    ForceImpl* createImpl() const;
+    OpenMM::ForceImpl* createImpl() const;
 private:
     class ParticleInfo;
     class ExceptionInfo;
